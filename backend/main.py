@@ -1,9 +1,28 @@
-from rag.generator import generate_reponse
+from fastapi import FastAPI
+from pydantic import BaseModel
+from rag.generator import generate_response
 from rag.retreiver import retrieve_document
 from rag.vectorstore import store_embeddings
 from rag.embedding import embed_chunks
 from rag.document_loader import load_pdf
 from rag.chunker import chunk_text
+
+app = FastAPI()
+
+class QueryRequest(BaseModel):
+    query: str
+
+@app.post("/query")
+def query_endpoint(request: QueryRequest):
+    """Query the RAG system with a question"""
+    result = retrieve_document(request.query)
+    answer = generate_response(request.query, result)
+    return {"query": request.query, "answer": answer}
+
+@app.get("/health")
+def health_check():
+    """Health check endpoint"""
+    return {"status": "ok"}
 
 def main():
     pdf_path = r"C:\Users\Owner\Downloads\reactpdf.pdf"
@@ -26,7 +45,7 @@ def main():
 
     # print(result)
 
-    answer = generate_reponse(query,result)
+    answer = generate_response(query,result)
 
     print(answer)
 

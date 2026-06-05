@@ -18,6 +18,7 @@ def  retrieve_document(query:str):
     best_decison = retrieved["distances"][0][0]
 
     Threeshold = 1.5
+    print("Best Decision pravat:", best_decison)
 
     if best_decison > Threeshold:
         return None

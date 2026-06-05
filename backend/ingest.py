@@ -4,17 +4,17 @@ from rag.chunker import chunk_text
 from rag.document_loader import load_pdf
 
 def ingest():
-    pdf_path = r"C:\Users\Owner\Downloads\reactpdf.pdf"
+    pdf_path = r"C:\Users\prava\Downloads\reactpdf.pdf"
 
     text = load_pdf(pdf_path)
 
     chunks = chunk_text(text)
 
-    # print(f"Total Chunks: {len(chunks)}")
+    print(f"Total Chunks: {len(chunks)}")
 
     embeddings = embed_chunks(chunks)
 
-    # print(f"Total Embeddings: {len(embeddings)}")
+    print(f"Total Embeddings: {len(embeddings)}")
 
     store_embeddings(chunks,embeddings)
 

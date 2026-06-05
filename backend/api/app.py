@@ -1,4 +1,4 @@
-from rag.generator import generate_reponse
+from rag.generator import generate_response
 from rag.retreiver import retrieve_document
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -22,6 +22,6 @@ def chat(req:ChatRequest):
     print("Request received:", req.query)
     query = req.query
     result = retrieve_document(query)
-    answer = generate_reponse(query,result)
+    answer = generate_response(query,result)
     return {"response":answer}
 
